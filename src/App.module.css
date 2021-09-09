@@ -1,0 +1,32 @@
+.googleButton {
+    position: absolute;
+    top: 0px;
+    right: 75px;
+
+}
+
+.greeting {
+    position: absolute;
+    top: 0px;
+    right: 220px;
+    color: white;
+}
+
+.logo {
+    width: 50px;
+    float: left;
+    margin: 7px 30px 0px -15px;
+}
+
+.googleAvatar {
+    max-width: 45px;
+    padding: 0 15px 2px 0;
+}
+
+.layout {
+    height: 100vh;
+}
+
+[data-theme="dark"] .siteLayout .siteLayoutBackground {
+  background: #141414;
+}

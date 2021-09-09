@@ -5,64 +5,11 @@ import { Layout, Menu, Button } from 'antd';
 import { Link, useLocation } from 'react-router-dom';
 import { Routes } from './components/Routes';
 import Logo from './assets/logo.png';
-import { OpenNotification } from './services/helpers/helpers';
-import { connect } from 'react-redux';
-import { RootState } from './domain/rootReducer';
-import {
-  setUserInfo as setSettingsAction,
-  resetUserInfo as resetSettingsAction,
-  setGoogleToken as setGoogleTokenAction,
-  resetGoogleToken as resetGoogleTokenAction,
-  setAnalyses as setAnalysesAction,
-} from './domain/settings/slice';
-
-const mapDispatch = {
-  setUserInfo: setSettingsAction,
-  resetUserInfo: resetSettingsAction,
-  setAnalyses: setAnalysesAction,
-  setGoogleToken: setGoogleTokenAction,
-  resetGoogleToken: resetGoogleTokenAction,
-} as const;
-const mapState = ({ settings }: RootState) => ({ settings } as const);
-
-type Props = ReturnType<typeof mapState> & typeof mapDispatch;
 
 const { Header, Content, Footer } = Layout;
-export const AppComponent = ({
-  setUserInfo,
-  resetUserInfo,
-  setGoogleToken,
-  resetGoogleToken,
-}: Props) => {
+export const App = () => {
   const [isLoaded, setIsLoaded] = React.useState<boolean>(false);
 
-  const onLoginSuccess = (response: any) => {
-    setUserInfo(response.profileObj);
-    setGoogleToken(response.tokenId);
-    setIsLoaded(true);
-  };
-
-  const onLogoutSuccess = () => {
-    resetUserInfo();
-    resetGoogleToken();
-    setIsLoaded(true);
-  };
-
-  const onAutoLoadFinished = () => {
-    setTimeout(() => {
-      setIsLoaded(true);
-    }, 2000);
-  };
-  const onLoginFailure = () => {
-    resetUserInfo();
-    resetGoogleToken();
-    setIsLoaded(true);
-    OpenNotification({
-      type: 'error',
-      message: 'Could not login',
-      description: 'Something went wrong',
-    });
-  };
   return (
     <div className="app">
       <Layout className={styles.layout}>
@@ -116,5 +63,3 @@ export const AppComponent = ({
     </div>
   );
 };
-
-export const App = connect(mapState, mapDispatch)(AppComponent);
